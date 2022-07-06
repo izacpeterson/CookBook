@@ -11,7 +11,7 @@ import NewRecipe from "./components/NewRecipe.vue";
   <button @click="this.new = !this.new" class="bg-blue-500 text-white p-2">
     Add Recipe
   </button>
-  <NewRecipe v-if="this.new" />
+  <NewRecipe v-if="this.new" @close="this.new = false" />
 </template>
 <script>
 export default {
