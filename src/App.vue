@@ -22,7 +22,7 @@ import {
   <button @click="this.new = !this.new" class="bg-blue-500 text-white p-2">
     Add Recipe
   </button>
-  <NewRecipe v-if="this.new" @close="this.new = false" />
+  <NewRecipe :uid="uid" v-if="this.new" @close="this.new = false" />
   <footer class="fixed bottom-0 w-full">
     {{ uid }}
   </footer>
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       new: false,
-      uid: null,
+      uid: "",
     };
   },
   created() {

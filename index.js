@@ -33,7 +33,7 @@ app.get("/api/getall", (req, res) => {
 app.post("/api/new", (req, res) => {
   console.log(req.body);
   db.exec(
-    'insert into recipes (title, desc, directions, ingredients) values ("' +
+    'insert into recipes (title, desc, directions, ingredients, user) values ("' +
       req.body.title +
       '", "' +
       req.body.desc +
@@ -41,6 +41,8 @@ app.post("/api/new", (req, res) => {
       req.body.directions +
       '", "' +
       req.body.ingredients +
+      '", "' +
+      req.body.uid +
       '")'
   );
 });
