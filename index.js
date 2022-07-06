@@ -9,16 +9,23 @@ app.use(cors());
 app.use(express.static("dist"));
 app.use(express.json());
 
-app.get("/api/recipe", (req, res) => {
-  res.json({
-    title: "",
-    description: "",
-    directions: [],
-    ingredients: [],
+app.get("/api/recipe/:id", (req, res) => {
+  const id = req.params.id;
+  db.get(`SELECT * FROM recipes WHERE rowid = ${id}`, (err, row) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error");
+    } else {
+      row.ingredients = row.ingredients.split(",");
+      row.directions = row.directions.split(",");
+      console.log(row);
+      res.send(row);
+    }
   });
 });
+
 app.get("/api/getall", (req, res) => {
-  db.all("SELECT * FROM recipes", (err, rows) => {
+  db.all("SELECT rowid, title FROM recipes", (err, rows) => {
     res.json(rows);
   });
 });

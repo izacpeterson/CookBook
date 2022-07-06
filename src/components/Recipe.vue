@@ -3,17 +3,21 @@
     <h2>Recipe</h2>
     <h3>{{ recipe.title }}</h3>
     <h3>Ingredients</h3>
-    <ul>
-      <li v-for="ingredient in recipe.ingredients" v-bind:key="ingredient" class="px-6 py-0">
+    <ul class="px-8">
+      <li
+        v-for="ingredient in recipe.ingredients"
+        v-bind:key="ingredient"
+        class="list-disc"
+      >
         {{ ingredient }}
       </li>
     </ul>
     <h3>Directions</h3>
-    <ol>
+    <ol class="px-8">
       <li
         v-for="direction in recipe.directions"
         v-bind:key="direction"
-        class="px-6 py-0"
+        class="list-decimal"
       >
         {{ direction }}
       </li>

@@ -1,8 +1,17 @@
 <template>
   <div>
     <h2>Recipe List</h2>
+    <select name="" id="">
+      <option value="">Public CookBook</option>
+      <option value="">My CookBook</option>
+    </select>
     <ul>
-      <li v-for="recipe in recipes" v-on:click="selectRecipe(recipe)">
+      <li
+        v-for="recipe in recipes"
+        v-bind:key="recipe.rowid"
+        v-on:click="selectRecipe(recipe)"
+        class="cursor-pointer"
+      >
         {{ recipe.title }}
       </li>
     </ul>
@@ -23,11 +32,8 @@ export default {
   },
   methods: {
     selectRecipe(recipe) {
-      console.log(recipe.directions[0]);
-      let selected = recipe;
-      selected.directions = selected.directions.split(",");
-      selected.ingredients = selected.ingredients.split(",");
-      this.$emit("selectRecipe", selected);
+      console.log(recipe.rowid);
+      this.$emit("selectRecipe", recipe.rowid);
     },
   },
 };
