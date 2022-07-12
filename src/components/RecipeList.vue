@@ -1,10 +1,14 @@
+<script setup>
+import { getUID } from "../functions/getUID.js";
+</script>
+
 <template>
-  <div>
+  <div class="p-4">
+    <span>
+      <button class="m-4" @click="switchView">My CookBook</button>
+      <button class="m-4" @click="switchView">Public CookBook</button>
+    </span>
     <h2>Recipe List</h2>
-    <select name="" id="">
-      <option value="">Public CookBook</option>
-      <option value="">My CookBook</option>
-    </select>
     <ul>
       <li
         v-for="recipe in recipes"
@@ -22,18 +26,40 @@ export default {
   data() {
     return {
       recipes: [],
+      viewPublic: false,
+      uid: "",
     };
   },
-  async created() {
-    const response = await fetch("http://localhost:8080/api/getall");
-    const data = await response.json();
-    this.recipes = data;
-    console.log(this.recipes);
+  mounted() {
+    getUID((uid) => {
+      this.uid = uid;
+      this.getList();
+    });
   },
   methods: {
+    //Select a recipe from the list
     selectRecipe(recipe) {
       console.log(recipe.rowid);
       this.$emit("selectRecipe", recipe.rowid);
+    },
+    //Get the list of recipes
+    async getList() {
+      if (this.viewPublic) {
+        const response = await fetch("http://localhost:8080/api/getall");
+        const data = await response.json();
+        this.recipes = data;
+      } else {
+        const response = await fetch(
+          "http://localhost:8080/api/getPrivate?uid=" + this.uid
+        );
+        const data = await response.json();
+        this.recipes = data;
+      }
+    },
+    //Switch between public and private recipes
+    switchView() {
+      this.viewPublic = !this.viewPublic;
+      this.getList();
     },
   },
 };

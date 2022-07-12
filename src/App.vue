@@ -19,10 +19,10 @@ import {
     </button>
   </header>
   <RouterView />
-  <button @click="this.new = !this.new" class="bg-blue-500 text-white p-2">
+  <button @click="newRec = !newRec" class="bg-blue-500 text-white p-2">
     Add Recipe
   </button>
-  <NewRecipe :uid="uid" v-if="this.new" @close="this.new = false" />
+  <NewRecipe :uid="uid" v-if="newRec" @close="newRec = false" />
   <footer class="fixed bottom-0 w-full">
     {{ uid }}
   </footer>
@@ -40,7 +40,7 @@ const app = initializeApp(firebaseConfig);
 export default {
   data() {
     return {
-      new: false,
+      newRec: false,
       uid: "",
     };
   },

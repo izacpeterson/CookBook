@@ -1,3 +1,6 @@
+<script setup>
+import { getUID } from "../functions/getUID.js";
+</script>
 <template>
   <div class="p-4">
     <h2>Recipe</h2>
@@ -22,10 +25,58 @@
         {{ direction }}
       </li>
     </ol>
+    <span v-if="mine">
+      <input type="checkbox" name="" id="" @click="changePublic" />
+      Public
+    </span>
   </div>
 </template>
 <script>
 export default {
-  props: ["recipe"],
+  props: ["recipeid"],
+  data() {
+    return {
+      uid: "",
+      mine: false,
+      publicRecipe: false,
+      recipe: {},
+    };
+  },
+  watch: {
+    recipeid(old, newRec) {
+      this.getRecipe();
+    },
+  },
+  created() {},
+  methods: {
+    async getRecipe() {
+      let rawData = await fetch(
+        "http://localhost:8080/api/recipe/" + this.recipeid
+      );
+      let data = await rawData.json();
+      this.recipe = data;
+
+      this.publicRecipe = this.recipe.public;
+
+      getUID((uid) => {
+        this.uid = uid;
+        console.log(`USER: ${this.uid} RECIPE: ${this.recipe.user}`);
+        if (this.recipe.user === uid) {
+          this.mine = true;
+        }
+      });
+    },
+    async changePublic() {
+      console.log(this.recipeid);
+      if (this.recipe.public == 0) {
+        await fetch("http://localhost:8080/api/setPublic?id=" + this.recipeid);
+        this.recipe.public = 1;
+      }
+      if (this.recipe.public == 1) {
+        await fetch("http://localhost:8080/api/setPrivate?id=" + this.recipeid);
+        this.recipe.public = 0;
+      }
+    },
+  },
 };
 </script>

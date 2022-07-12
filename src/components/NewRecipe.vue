@@ -4,7 +4,10 @@
     action="http://localhost:8080/api/new"
     class="fixed top-0 w-full h-full bg-white opacity-95 flex flex-col items-center justify-center"
   >
-    <h1 class="text-4xl">New Recipe</h1>
+    <header>
+      <h1 class="text-4xl">New Recipe</h1>
+      <button @click="this.$emit('close')">close</button>
+    </header>
     <h2>Title</h2>
     <input
       type="text"

@@ -25,9 +25,18 @@ app.get("/api/recipe/:id", (req, res) => {
 });
 
 app.get("/api/getall", (req, res) => {
-  db.all("SELECT rowid, title FROM recipes", (err, rows) => {
+  db.all("SELECT rowid, title FROM recipes WHERE pubic = 1", (err, rows) => {
     res.json(rows);
   });
+});
+app.get("/api/getPrivate", (req, res) => {
+  console.log("getPrivate");
+  db.all(
+    `SELECT rowid, title FROM recipes WHERE user = '${req.query.uid}'`,
+    (err, rows) => {
+      res.json(rows);
+    }
+  );
 });
 
 app.post("/api/new", (req, res) => {
@@ -52,6 +61,15 @@ app.get("/api/clear", (req, res) => {
   res.json({
     message: "Database cleared",
   });
+});
+
+app.get("/api/setPublic", (req, res) => {
+  db.exec("UPDATE recipes SET public = 1 WHERE rowid = " + req.query.id);
+  res.send("set");
+});
+app.get("/api/setPrivate", (req, res) => {
+  db.exec("UPDATE recipes SET public = 0 WHERE rowid = " + req.query.id);
+  res.send("set");
 });
 
 function clearDB() {
