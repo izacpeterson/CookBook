@@ -1,7 +1,7 @@
 <template>
   <form
     @submit="addRecipe"
-    action="http://localhost:8080/api/new"
+    action="/api/new"
     class="fixed top-0 w-full h-full bg-white opacity-95 flex flex-col items-center justify-center"
   >
     <header>
@@ -96,7 +96,7 @@ export default {
         redirect: "follow",
       };
 
-      fetch("http://localhost:8080/api/new", requestOptions)
+      fetch("/api/new", requestOptions)
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));

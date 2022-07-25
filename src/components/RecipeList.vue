@@ -45,13 +45,11 @@ export default {
     //Get the list of recipes
     async getList() {
       if (this.viewPublic) {
-        const response = await fetch("http://localhost:8080/api/getall");
+        const response = await fetch("/api/getall");
         const data = await response.json();
         this.recipes = data;
       } else {
-        const response = await fetch(
-          "http://localhost:8080/api/getPrivate?uid=" + this.uid
-        );
+        const response = await fetch("/api/getPrivate?uid=" + this.uid);
         const data = await response.json();
         this.recipes = data;
       }

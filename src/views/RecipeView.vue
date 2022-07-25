@@ -12,9 +12,7 @@ export default {
     };
   },
   async mounted() {
-    let rawData = await fetch(
-      "http://localhost:8080/api/recipe/" + this.$route.params.id
-    );
+    let rawData = await fetch("/api/recipe/" + this.$route.params.id);
     let data = await rawData.json();
     this.recipe = data;
   },

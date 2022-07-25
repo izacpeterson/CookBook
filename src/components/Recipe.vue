@@ -50,9 +50,7 @@ export default {
   created() {},
   methods: {
     async getRecipe() {
-      let rawData = await fetch(
-        "http://localhost:8080/api/recipe/" + this.recipeid
-      );
+      let rawData = await fetch("/api/recipe/" + this.recipeid);
       let data = await rawData.json();
       this.recipe = data;
 
@@ -69,11 +67,11 @@ export default {
     async changePublic() {
       console.log(this.recipeid);
       if (this.recipe.public == 0) {
-        await fetch("http://localhost:8080/api/setPublic?id=" + this.recipeid);
+        await fetch("/api/setPublic?id=" + this.recipeid);
         this.recipe.public = 1;
       }
       if (this.recipe.public == 1) {
-        await fetch("http://localhost:8080/api/setPrivate?id=" + this.recipeid);
+        await fetch("/api/setPrivate?id=" + this.recipeid);
         this.recipe.public = 0;
       }
     },
