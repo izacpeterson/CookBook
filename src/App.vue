@@ -12,9 +12,9 @@ import {
 </script>
 
 <template>
-  <header class="p-5 bg-blue-500 text-white flex justify-between">
-    <h1 class="text-3xl">Recipe Book</h1>
-    <button @click="signIn" class="bg-white text-blue-500 p-2">
+  <header class="p-5 bg-back1 text-white flex justify-between">
+    <h1 class="text-3xl text-white">Recipe Book</h1>
+    <button @click="signIn" class="bg-primary text-white p-2">
       Sign in with Google
     </button>
   </header>
