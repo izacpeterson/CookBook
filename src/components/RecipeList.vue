@@ -10,13 +10,9 @@ import { getUID } from "../functions/getUID.js";
     </span>
     <h2>Recipe List</h2>
     <ul>
-      <li
-        v-for="recipe in recipes"
-        v-bind:key="recipe.rowid"
-        v-on:click="selectRecipe(recipe)"
-        class="cursor-pointer"
-      >
-        {{ recipe.title }}
+      <li v-for="recipe in recipes" v-bind:key="recipe.rowid" v-on:click="selectRecipe(recipe)" class="cursor-pointer">
+        <!-- {{ recipe.title }} -->
+        <router-link :to="'/recipe/' + recipe.rowid">{{ recipe.title }}</router-link>
       </li>
     </ul>
   </div>
@@ -52,6 +48,7 @@ export default {
         const response = await fetch("/api/getPrivate?uid=" + this.uid);
         const data = await response.json();
         this.recipes = data;
+        console.log(this.recipes);
       }
     },
     //Switch between public and private recipes

@@ -1,29 +1,13 @@
 <template>
-  <form
-    @submit="addRecipe"
-    action="/api/new"
-    class="fixed top-0 w-full h-full bg-white opacity-95 flex flex-col items-center justify-center"
-  >
+  <form @submit="addRecipe" action="/api/new" class="fixed top-0 w-full h-full bg-white opacity-95 flex flex-col items-center justify-center">
     <header>
       <h1 class="text-4xl">New Recipe</h1>
       <button @click="this.$emit('close')">close</button>
     </header>
     <h2>Title</h2>
-    <input
-      type="text"
-      v-model="title"
-      placeholder="Title"
-      class="bg-gray-200 m-2 p-2"
-      name="title"
-    />
+    <input type="text" v-model="title" placeholder="Title" class="bg-gray-200 m-2 p-2" name="title" />
     <h2>Description</h2>
-    <input
-      type="text"
-      v-model="desc"
-      placeholder="Description"
-      class="bg-gray-200 m-2 p-2"
-      name="desc"
-    />
+    <input type="text" v-model="desc" placeholder="Description" class="bg-gray-200 m-2 p-2" name="desc" />
     <h2>Ingredients</h2>
     <ul>
       <li v-for="ingredient in ingredients" v-bind:key="ingredient">
@@ -31,15 +15,8 @@
       </li>
     </ul>
     <span>
-      <input
-        type="text"
-        v-model="newIngredient"
-        placeholder="Ingredient"
-        class="bg-gray-200 m-2 p-2"
-      />
-      <button @click="addIngredient" class="bg-blue-500 text-white p-2">
-        Add
-      </button>
+      <input type="text" v-model="newIngredient" placeholder="Ingredient" class="bg-gray-200 m-2 p-2" />
+      <button @click="addIngredient" class="bg-blue-500 text-white p-2">Add</button>
     </span>
     <h2>Directions</h2>
     <ul>
@@ -48,15 +25,8 @@
       </li>
     </ul>
     <span>
-      <input
-        v-model="newDirection"
-        type="text"
-        placeholder="Directions"
-        class="bg-gray-200 m-2 p-2"
-      />
-      <button @click="addDirection" class="bg-blue-500 text-white p-2">
-        Add
-      </button>
+      <input v-model="newDirection" type="text" placeholder="Directions" class="bg-gray-200 m-2 p-2" />
+      <button @click="addDirection" class="bg-blue-500 text-white p-2">Add</button>
     </span>
 
     <button class="bg-blue-500 text-white p-2">Add Recipe</button>

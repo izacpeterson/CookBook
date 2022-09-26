@@ -7,21 +7,13 @@ import { getUID } from "../functions/getUID.js";
     <h3>{{ recipe.title }}</h3>
     <h3>Ingredients</h3>
     <ul class="px-8">
-      <li
-        v-for="ingredient in recipe.ingredients"
-        v-bind:key="ingredient"
-        class="list-disc"
-      >
+      <li v-for="ingredient in recipe.ingredients" v-bind:key="ingredient" class="list-disc">
         {{ ingredient }}
       </li>
     </ul>
     <h3>Directions</h3>
     <ol class="px-8">
-      <li
-        v-for="direction in recipe.directions"
-        v-bind:key="direction"
-        class="list-decimal"
-      >
+      <li v-for="direction in recipe.directions" v-bind:key="direction" class="list-decimal">
         {{ direction }}
       </li>
     </ol>
@@ -55,7 +47,7 @@ export default {
       this.recipe = data;
 
       this.publicRecipe = this.recipe.public;
-
+      console.log(this.recipe);
       getUID((uid) => {
         this.uid = uid;
         console.log(`USER: ${this.uid} RECIPE: ${this.recipe.user}`);

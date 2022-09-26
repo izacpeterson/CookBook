@@ -3,28 +3,19 @@ import { RouterLink, RouterView } from "vue-router";
 import NewRecipe from "./components/NewRecipe.vue";
 import { initializeApp } from "firebase/app";
 
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 </script>
 
 <template>
   <header class="p-5 bg-back1 text-white flex justify-between">
     <h1 class="text-3xl text-white">Recipe Book</h1>
-    <button @click="signIn" class="bg-primary text-white p-2">
-      Sign in with Google
-    </button>
+    <button @click="signIn" class="bg-primary text-white p-2">Sign in with Google</button>
   </header>
   <RouterView />
-  <button @click="newRec = !newRec" class="bg-blue-500 text-white p-2">
-    Add Recipe
-  </button>
+  <button @click="newRec = !newRec" class="bg-blue-500 text-white p-2">Add Recipe</button>
   <NewRecipe :uid="uid" v-if="newRec" @close="newRec = false" />
   <footer class="fixed bottom-0 w-full">
-    {{ uid }}
+    <!-- {{ uid }} -->
   </footer>
 </template>
 <script>
