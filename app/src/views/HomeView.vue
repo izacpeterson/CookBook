@@ -2,7 +2,7 @@
 
 <template>
   <main>
-    <h1>My Recipes</h1>
+    <h1 class="text-2xl">My Recipes</h1>
     <ul>
       <li v-for="recipe in recipes" v-bind:key="recipe.rowID">
         <router-link :to="'/recipe/' + recipe.rowid">{{ recipe.title }}</router-link>

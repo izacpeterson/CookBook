@@ -6,18 +6,26 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from
 </script>
 
 <template>
-  <header>
+  <!-- <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/public">Public</RouterLink>
-        <RouterLink to="/new">New</RouterLink>
+        <RouterLink to="/" class="text-primary">Home</RouterLink>
+        <RouterLink to="/public" class="text-primary">Public</RouterLink>
+        <RouterLink to="/new" class="text-primary">New</RouterLink>
       </nav>
     </div>
-  </header>
+  </header> -->
 
-  <RouterView />
-  <button @click="signIn">Login with Google</button>
+  <RouterView class="pb-24" />
+  <button @click="signIn" class="btn-primary" v-if="uid == ''">Login with Google</button>
+
+  <nav class="flex items-center fixed bottom-0 p-4 w-full bg-zinc-800 drop-shadow-[0_5px_5px_rgba(0,0,0,1)]">
+    <RouterLink to="/" class="text-primary">Home</RouterLink>
+    <RouterLink to="/new">
+      <button class="bg-primary w-12 h-12 rounded-full text-4xl">+</button>
+    </RouterLink>
+    <RouterLink to="/public" class="text-primary">Public</RouterLink>
+  </nav>
 </template>
 
 <script>

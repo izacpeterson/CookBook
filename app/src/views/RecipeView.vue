@@ -1,15 +1,17 @@
 <template>
-  <main>
-    <h1>{{ recipe.title }}</h1>
-    <p>{{ recipe.desc }}</p>
-    <ul>
-      <h2>Ingredients:</h2>
+  <main class="m-2">
+    <h1 class="text-2xl">{{ recipe.title }}</h1>
+    <p class="mx-4">{{ recipe.desc }}</p>
+    <h2 class="text-2xl pt-4">Ingredients:</h2>
+    <ul class="list-disc px-6">
       <li v-for="ingredient in recipe.ingredients" v-bind:key="ingredient">{{ ingredient }}</li>
     </ul>
-    <ol>
-      <h2>Directions:</h2>
+    <h2 class="text-2xl pt-4">Directions:</h2>
+    <ol class="list-decimal px-6">
       <li v-for="dir in recipe.directions" v-bind:key="dir">{{ dir }}</li>
     </ol>
+
+    <div class="public"><input type="checkbox" name="" id="" />Public</div>
   </main>
 </template>
 <script>
@@ -31,5 +33,8 @@ ul,
 ol {
   width: 100%;
   padding: 0;
+}
+.public {
+  display: flex;
 }
 </style>
