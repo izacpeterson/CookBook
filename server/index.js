@@ -64,6 +64,6 @@ function clearDB() {
   db.exec("DELETE FROM recipes");
 }
 
-app.listen(8083, () => {
+app.listen(8084, () => {
   console.log("Server Up");
 });
