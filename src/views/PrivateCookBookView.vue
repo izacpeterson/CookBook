@@ -1,8 +1,8 @@
 <script setup>
-import RecipeList from "../components/RecipeList.vue";
+import PrivateRecipeList from "../components/PrivateRecipeList.vue";
 </script>
 <template>
   <main>
-    <RecipeList publicRecipe="false"></RecipeList>
+    <PrivateRecipeList></PrivateRecipeList>
   </main>
 </template>

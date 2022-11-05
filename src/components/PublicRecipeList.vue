@@ -1,5 +1,5 @@
 <script setup>
-import { getRecipes } from "../functions/firebase.js";
+import { getPublicRecipes, getUser } from "../functions/firebase.js";
 </script>
 <template>
   <ul>
@@ -11,14 +11,14 @@ import { getRecipes } from "../functions/firebase.js";
 </template>
 <script>
 export default {
-  props: ["publicRecipe"],
   data() {
     return {
       recipeList: [],
+      uid: "",
     };
   },
   created() {
-    getRecipes(this.publicRecipe, "T7NURLsCjaV3rwdmgWLCiasVx0s2").then((recipes) => {
+    getPublicRecipes().then((recipes) => {
       recipes.forEach((recipe) => {
         this.recipeList.push({
           name: recipe.data().name,

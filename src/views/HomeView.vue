@@ -1,6 +1,8 @@
 <script setup>
 import NewRecipe from "../components/NewRecipe.vue";
-import RecipeList from "../components/RecipeList.vue";
+import PublicRecipeList from "../components/PublicRecipeList.vue";
+import PrivateRecipeList from "../components/PrivateRecipeList.vue";
+import { getUser } from "../functions/firebase";
 </script>
 
 <template>
@@ -11,8 +13,8 @@ import RecipeList from "../components/RecipeList.vue";
     <!-- <router-link to="/Private">Private</router-link> -->
     <button v-if="!viewPublic" class="bg-primary p-2 m-2 text-white" @click="viewPublic = true">Public</button>
     <button v-if="viewPublic" class="bg-primary p-2 m-2 text-white" @click="viewPublic = false">Private</button>
-    <RecipeList v-if="viewPublic" publicRecipe="true"></RecipeList>
-    <RecipeList v-if="!viewPublic" publicRecipe="false"></RecipeList>
+    <PublicRecipeList v-if="viewPublic"></PublicRecipeList>
+    <PrivateRecipeList v-if="!viewPublic"></PrivateRecipeList>
   </main>
 </template>
 <script>
@@ -21,6 +23,13 @@ export default {
     return {
       viewPublic: false,
     };
+  },
+  created() {
+    getUser()
+      .then((user) => {})
+      .catch(() => {
+        this.viewPublic = true;
+      });
   },
 };
 </script>

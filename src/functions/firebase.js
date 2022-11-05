@@ -72,12 +72,23 @@ export function saveRecpie(recipe) {
   });
 }
 
-export function getRecipes(publicRecipe, uid) {
-  publicRecipe = publicRecipe === "true" ? true : false;
-  console.log(uid);
-
+export function getPublicRecipes() {
   return new Promise(async (resolve, reject) => {
-    const q = query(collection(db, "recipes"), where("public", "==", publicRecipe), where("uid", "==", uid));
+    let q = query(collection(db, "recipes"), where("public", "==", true));
+
+    const querySnapshot = await getDocs(q);
+
+    const recipes = [];
+    querySnapshot.forEach((doc) => {
+      recipes.push(doc);
+    });
+
+    resolve(recipes);
+  });
+}
+export function getPrivateRecipes(uid) {
+  return new Promise(async (resolve, reject) => {
+    let q = query(collection(db, "recipes"), where("uid", "==", uid));
 
     const querySnapshot = await getDocs(q);
 
