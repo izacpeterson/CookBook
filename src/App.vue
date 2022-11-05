@@ -1,10 +1,10 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import PageHeader from './components/PageHeader.vue';
+import { RouterLink, RouterView } from "vue-router";
+import PageHeader from "./components/PageHeader.vue";
 </script>
 
 <template>
   <PageHeader></PageHeader>
 
-  <RouterView />
+  <RouterView class="p-5" />
 </template>
