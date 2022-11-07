@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, addDoc, query, where, getDocs, doc, getDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, where, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,6 +22,9 @@ const db = getFirestore(app);
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
+
+const prod = true;
+let dbName = prod ? "recipes" : "recipes-dev";
 
 export function googleSignin() {
   return new Promise((resolve, reject) => {
@@ -64,7 +67,7 @@ export function getUser() {
 export function saveRecpie(recipe) {
   return new Promise(async (resolve, reject) => {
     try {
-      const docRef = await addDoc(collection(db, "recipes"), recipe);
+      const docRef = await addDoc(collection(db, dbName), recipe);
       resolve(docRef.id);
     } catch (e) {
       reject(e);
@@ -74,7 +77,7 @@ export function saveRecpie(recipe) {
 
 export function getPublicRecipes() {
   return new Promise(async (resolve, reject) => {
-    let q = query(collection(db, "recipes"), where("public", "==", true));
+    let q = query(collection(db, dbName), where("public", "==", true));
 
     const querySnapshot = await getDocs(q);
 
@@ -86,9 +89,10 @@ export function getPublicRecipes() {
     resolve(recipes);
   });
 }
+
 export function getPrivateRecipes(uid) {
   return new Promise(async (resolve, reject) => {
-    let q = query(collection(db, "recipes"), where("uid", "==", uid));
+    let q = query(collection(db, dbName), where("uid", "==", uid));
 
     const querySnapshot = await getDocs(q);
 
@@ -103,13 +107,26 @@ export function getPrivateRecipes(uid) {
 
 export function getRecipe(id) {
   return new Promise(async (resolve, reject) => {
-    const docRef = doc(db, "recipes", id);
+    const docRef = doc(db, dbName, id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      resolve(docSnap.data());
+      docSnap.data().id = id;
+      let recipe = docSnap.data();
+      recipe.id = id;
+      console.log(recipe);
+      resolve(recipe);
     } else {
       reject();
     }
+  });
+}
+
+export function updateRecipe(id, isPublic) {
+  return new Promise(async (resolve, reject) => {
+    const recipeRef = doc(db, dbName, id);
+    await updateDoc(recipeRef, {
+      public: isPublic,
+    });
   });
 }

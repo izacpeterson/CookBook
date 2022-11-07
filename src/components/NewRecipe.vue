@@ -13,7 +13,7 @@ import { getUser, saveRecpie } from "../functions/firebase.js";
       </li>
     </ul>
     <form @submit.prevent="addIngredient" class="m-2 flex">
-      <input type="text" v-model="newIngredient" class="bg-gray-200 flex-1 p-2" />
+      <input type="text" v-model="recipe.newIngredient" class="bg-gray-200 flex-1 p-2" />
       <button class="bg-primary p-2 text-white">Add</button>
     </form>
     <label for="">Directions:</label>
@@ -23,7 +23,7 @@ import { getUser, saveRecpie } from "../functions/firebase.js";
       </li>
     </ol>
     <form @submit.prevent="addStep" class="m-2 flex">
-      <input type="text" v-model="newStep" class="bg-gray-200 flex-1 p-2" />
+      <input type="text" v-model="recipe.newStep" class="bg-gray-200 flex-1 p-2" />
       <button class="bg-primary p-2 text-white">Add</button>
     </form>
     <button @click="addRecipe" class="bg-primary text-white">Submit</button>
@@ -42,6 +42,8 @@ export default {
         directions: [],
         uid: "",
         public: false,
+        newIngredient: "",
+        newStep: "",
       },
       demoRecipe: {
         name: "Demo Recipe",
@@ -53,8 +55,6 @@ export default {
         uid: "",
         public: false,
       },
-      newIngredient: "",
-      newStep: "",
     };
   },
   methods: {
@@ -70,12 +70,12 @@ export default {
         });
     },
     addIngredient() {
-      this.recipe.ingredients.push(this.newIngredient);
-      this.newIngredient = "";
+      this.recipe.ingredients.push(this.recipe.newIngredient);
+      this.recipe.newIngredient = "";
     },
     addStep() {
-      this.recipe.directions.push(this.newStep);
-      this.newStep = "";
+      this.recipe.directions.push(this.recipe.newStep);
+      this.recipe.newStep = "";
     },
   },
   created() {
